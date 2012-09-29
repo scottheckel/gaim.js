@@ -1,4 +1,4 @@
-window.g = function(gameWrapper) {
+window.gaim = function(gameWrapper) {
 	var entityStore = [],
 		componentSetup = {},
 		currentId = 1,
