@@ -93,7 +93,7 @@ window.gaim = function(gameWrapper) {
 	function run(step) {
 		step = step || (1000/60); // ~60 fps default
 		isRunning = true;
-		if(Gamepad && Gamepad.supported) {
+		if(window.Gamepad && window.Gamepad.supported) {
 			hasGamepad = true;
 			publish('gamepadSupport');
 		}
