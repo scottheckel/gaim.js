@@ -43,6 +43,9 @@ window.gaim = function(gameWrapper) {
 
 	// Find by a Component Selector
 	function find(selector) {
+		if(selector == '*') {
+			return entityStore;
+		}
 		var ret = [];
 		for(var e in entityStore) {
 			for(var c in entityStore[e].co) {
@@ -126,6 +129,10 @@ window.gaim = function(gameWrapper) {
 		}
 	}
 
+	function stop() {
+		isRunning = false;		
+	}
+
 	gameWrapper.onmousedown = function(e) {
 		e.isRightClick = e.which ? e.which == 3 : (e.button ? e.button == 2 : false);
 		publish('mousedown', e);
@@ -157,10 +164,16 @@ window.gaim = function(gameWrapper) {
 
 	return {
 		e: createEntity,
+		entity: createEntity,
 		c: createComponent,
+		component: createComponent,
 		cs: componentSubscribe,
+		subscribe: componentSubscribe,
 		f: find,
+		find: find,
 		r: run,
-		s: function() { isRunning = false; }
+		run: run,
+		s: stop,
+		stop: stop
 	};
 };
