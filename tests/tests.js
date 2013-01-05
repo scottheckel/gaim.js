@@ -1,4 +1,4 @@
-test( "gaim object created correctly", function() {
+test( "can create gaim correctly", function() {
 	var g = new gaim({});
 	ok(g.e, 'has create entity shortcut');
 	ok(g.entity, 'has create entity method');
@@ -14,7 +14,7 @@ test( "gaim object created correctly", function() {
 	ok(g.stop, 'has stop method');
 });
 
-test( "create with no entities", function() {
+test( "has no entities upon creation", function() {
 	var g = new gaim({});
 	var allEntities = g.f('*');
 	ok(allEntities.length == 0, 'no entities stored initially')
@@ -30,4 +30,36 @@ test( "can create entity", function() {
 	equal(e.co[0], 'big', 'big component found');
 	equal(e.co[1], 'bird', 'bird component found');
 	deepEqual(g.find('*')[0], e, 'entity can be found');
-})
+});
+
+test( "can create entity with one component", function() {
+	var g = new gaim({});
+	var e = g.e('bird');
+	equal(e.id, 1, 'entity id is correct');
+	ok(e.on, 'has entity subscribe method');
+	ok(e.t, 'has entity trigger shortcut');
+	ok(e.co.length == 1, 'one components in entity');
+	equal(e.co[0], 'bird', 'bird component found');
+	deepEqual(g.find('*')[0], e, 'entity can be found');
+});
+
+test( "can create entity with no component", function() {
+	var g = new gaim({});
+	var e = g.e();
+	equal(e.id, 1, 'entity id is correct');
+	ok(e.on, 'has entity subscribe method');
+	ok(e.t, 'has entity trigger shortcut');
+	ok(e.co.length == 0, 'zero components in entity');
+	deepEqual(g.find('*')[0], e, 'entity can be found');
+});
+
+test( "can create component", function() {
+	var g = new gaim({});
+	var e = g.e('bird');
+	var wasSetupCalled = false;
+	g.c('bird', function(bird) {
+		deepEqual(bird, e, 'entity sent to setup callback is expected entity');
+		wasSetupCalled = true;
+	});
+	ok(wasSetupCalled, 'setup was called on entity');
+});
