@@ -177,7 +177,7 @@ window.gaim = function(gameWrapper) {
 		stop: stop,
                 KEYS: {
                         LEFT: 37,
-                        UP: 38
+                        UP: 38,
                         RIGHT: 39,
                         DOWN: 40
                 }
